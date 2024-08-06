@@ -1,4 +1,5 @@
 'use client';
+import { Metadata } from 'next'
 
 
 import { Button } from "@/components/ui/button"
@@ -163,9 +164,9 @@ export default function Order() {
             </div>
         })
         }
-        <p className="leading-7 [&:not(:first-child)]:mt-6">
+        <div className="leading-7 [&:not(:first-child)]:mt-6">
             总单数： {all.danshu} 总套数：{all.numberOfPieces} 总金额：{all.total}.
-        </p>
+        </div>
         <Button onClick={addOrder} className="w-full mt-6">添加订单</Button>
     </div>
 
