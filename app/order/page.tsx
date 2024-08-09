@@ -4,7 +4,6 @@ import { Metadata } from 'next'
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 
 import {
     Select,
@@ -13,9 +12,22 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { useEffect, useState } from "react";
-const 申通快递 = 1.35
 
+import { useEffect, useState } from "react";
+type Init = {
+    orderNumber: number;
+    daizi: number;
+    numberOfPieces: number;
+    cb: string;
+}[]
+const 申通快递 = 1.35
+const d = localStorage.getItem('dynamicVaildateForm')
+const init = d ? JSON.parse(d) as Init : [{
+    orderNumber: 1,
+    daizi: 0.1,
+    numberOfPieces: 1,
+    cb: '',
+}]
 
 const rengong = 0.2
 const 短袖 = 4.6 + rengong
@@ -62,17 +74,17 @@ const styles = [
 
 export default function Order() {
 
-    const [dynamicVaildateForm, setDynamicVaildateForm] = useState([{
-        orderNumber: 1,
-        daizi: 0.1,
-        numberOfPieces: 1,
-        cb: '',
-    }])
+    const [dynamicVaildateForm, setDynamicVaildateForm] = useState(init)
 
     function addOrder() {
         computedAll()
         setDynamicVaildateForm([...dynamicVaildateForm, { cb: '', orderNumber: 1, numberOfPieces: 1, daizi: 0.1 }])
     }
+
+    useEffect(() => {
+        localStorage.setItem('dynamicVaildateForm', JSON.stringify(dynamicVaildateForm))
+    }, [dynamicVaildateForm])
+
 
     function deleteOrder(index: number) {
         const n = dynamicVaildateForm.filter((t, i) => i !== index)
@@ -117,16 +129,21 @@ export default function Order() {
         let danshu = 0
         let numberOfPieces = 0
         dynamicVaildateForm.forEach(item => {
-            total += item.daizi + item.numberOfPieces * +item.cb
+            total += +(item.daizi + item.numberOfPieces * +item.cb).toFixed(1)
             danshu += +item.orderNumber
             numberOfPieces += +item.numberOfPieces
         })
         setAll({ total, danshu, numberOfPieces })
     }
+    function clearOrder() {
+        setDynamicVaildateForm([])
+    }
 
 
 
     return <div className="p-10">
+        <Button onClick={clearOrder} className="w-full my-6 bg-orange-400">清空</Button>
+
         {dynamicVaildateForm.map((item, index) => {
             return <div key={index} className="flex items-center space-x-2 pb-4">
                 <Select onValueChange={(e) => onSelect(+e, index)} value={item.cb}>
@@ -159,15 +176,16 @@ export default function Order() {
                     id="numberOfPieces"
                     placeholder="件数"
                 />
-                <span className="flex-auto">袋子：{item.daizi} + 单套（人工+货本）：{(+item.cb).toFixed(1)} = {item.numberOfPieces * +item.cb + item.daizi} </span>
+                <span className="flex-auto">袋子：{item.daizi} + 单套（人工+货本）：{(+item.cb).toFixed(1)} = {(item.numberOfPieces * +item.cb + item.daizi).toFixed(1)} </span>
                 <Button onClick={() => deleteOrder(index)}>删除</Button>
             </div>
         })
         }
         <div className="leading-7 [&:not(:first-child)]:mt-6">
-            总单数： {all.danshu} 总套数：{all.numberOfPieces} 总金额：{all.total}.
+            总单数： {all.danshu} 总套数：{all.numberOfPieces} 总金额：{all.total}
         </div>
-        <Button onClick={addOrder} className="w-full mt-6">添加订单</Button>
+        <Button onClick={addOrder} className="w-full my-6">添加订单</Button>
+
     </div>
 
 }
