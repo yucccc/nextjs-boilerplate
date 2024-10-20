@@ -41,12 +41,17 @@ export default function Order() {
     const 薄长裤 = 6.7 + rengong
     const 薄长裤2件 = 薄长裤 * 2
 
+  
+    const 加绒裤子 = 9.2 + rengong
+    const 羊羔绒裤 = 10.2 + rengong
+
+
     // 加绒
     const 圆领卫衣加绒 = 9 + rengong
-    const 加绒裤子 = 9.2 + rengong
+
+
     const 羊羔绒连帽 = 11 + rengong
-    const 羊羔绒裤 = 10.2 + rengong
-    const 羊羔绒圆领 = 9.5 + rengong
+    const 羊羔绒圆领 = 9.5
 
 
     const styles = [
@@ -77,12 +82,26 @@ export default function Order() {
         { label: '长假两件1件', value: 长假两件, },
         { label: '长假两件2件', value: 长假两件 * 2, },
         { label: '短假两件', value: 短假两件, },
-        { label: '圆领卫衣加绒', value: 圆领卫衣加绒, },
+ 
         { label: '加绒裤子', value: 加绒裤子, },
-        { label: '羊羔绒连帽', value: 羊羔绒连帽, },
+        { label: '加绒裤子2条装', value: 加绒裤子 * 2, },
         { label: '羊羔绒裤', value: 羊羔绒裤, },
-        { label: '羊羔绒圆领', value: 羊羔绒圆领, },
 
+        { label: '圆领卫衣加绒', value: 圆领卫衣加绒, },
+        { label: '圆领卫衣加绒 + 加绒裤', value: 圆领卫衣加绒 + 加绒裤子, },
+
+        { label: '羊羔绒连帽', value: 羊羔绒连帽, },
+        { label: '羊羔绒连帽 2件装', value: 羊羔绒连帽 * 2, },
+        { label: '羊羔绒连帽+绒裤', value: 羊羔绒连帽 + 加绒裤子 },
+        { label: '羊羔绒圆领', value: 羊羔绒圆领 },
+       
+        { label: '羊羔绒圆领', value: 羊羔绒圆领  },
+        { label: '羊羔绒圆领', value: 羊羔绒圆领 },
+
+        { label: '随机 羊羔绒圆领', value: 羊羔绒圆领 - rengong , },
+        { label: '随机 羊羔绒连帽', value: 羊羔绒连帽 - rengong , },
+        { label: '随机 加绒裤子', value: 加绒裤子 - rengong, },
+        { label: '随机 羊羔绒裤', value: 羊羔绒裤 - rengong, },
 
     ]
 
