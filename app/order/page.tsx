@@ -42,7 +42,7 @@ export default function Order() {
     const 薄长裤2件 = 薄长裤 * 2
 
   
-    const 加绒裤子 = 9.2 + rengong
+    const 加绒裤子 = 9.2 + rengong - 0.8
     const 羊羔绒裤 = 10.2 + rengong
 
 
@@ -93,12 +93,13 @@ export default function Order() {
         { label: '羊羔绒连帽', value: 羊羔绒连帽, },
         { label: '羊羔绒连帽 2件装', value: 羊羔绒连帽 * 2, },
         { label: '羊羔绒连帽+绒裤', value: 羊羔绒连帽 + 加绒裤子 },
+
         { label: '羊羔绒圆领', value: 羊羔绒圆领 },
        
-        { label: '羊羔绒圆领', value: 羊羔绒圆领  },
-        { label: '羊羔绒圆领', value: 羊羔绒圆领 },
-
+        { label: '随机 薄长裤', value: 薄长裤 - rengong , },
+        { label: '随机 薄卫衣', value: 薄卫衣1 - rengong },
         { label: '随机 羊羔绒圆领', value: 羊羔绒圆领 - rengong , },
+      
         { label: '随机 羊羔绒连帽', value: 羊羔绒连帽 - rengong , },
         { label: '随机 加绒裤子', value: 加绒裤子 - rengong, },
         { label: '随机 羊羔绒裤', value: 羊羔绒裤 - rengong, },
