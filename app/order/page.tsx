@@ -28,7 +28,7 @@ export default function Order() {
     const [快递, setST] = useState(1.8)
     const [rengong, setRG] = useState(0.7)
 
-    const daizi = 0.1
+    const daizi = 0.2
 
     const 短袖 = 4.6 + rengong
     const 短裤 = 4.9 + rengong
@@ -41,7 +41,7 @@ export default function Order() {
     const 薄长裤 = 6.7 + rengong
     const 薄长裤2件 = 薄长裤 * 2
 
-  
+    
     const 加绒裤子 = 9.2 + rengong - 0.8
     const 羊羔绒裤 = 10.2 + rengong
 
@@ -106,13 +106,13 @@ export default function Order() {
 
     ]
 
-    const [dynamicVaildateForm, setDynamicVaildateForm] = useState([{ cb: '', orderNumber: 1, numberOfPieces: 1, daizi: 0.1 }])
+    const [dynamicVaildateForm, setDynamicVaildateForm] = useState([{ cb: '', orderNumber: 1, numberOfPieces: 1, daizi: daizi }])
 
     useEffect(() => {
         const d = localStorage.getItem('dynamicVaildateForm')
         const init = d ? JSON.parse(d) as Init : [{
             orderNumber: 1,
-            daizi: 0.1,
+            daizi: daizi,
             numberOfPieces: 1,
             cb: '',
         }]
@@ -122,7 +122,7 @@ export default function Order() {
 
     function addOrder() {
         computedAll()
-        setDynamicVaildateForm([...dynamicVaildateForm, { cb: '', orderNumber: 1, numberOfPieces: 1, daizi: 0.1 }])
+        setDynamicVaildateForm([...dynamicVaildateForm, { cb: '', orderNumber: 1, numberOfPieces: 1, daizi: daizi }])
     }
 
     useEffect(() => {
@@ -140,7 +140,7 @@ export default function Order() {
         dynamicVaildateForm.forEach((item, i) => {
             if (i === index) {
                 item.orderNumber = value
-                item.daizi = +(value * 0.1).toFixed(1)
+                item.daizi = +(value * daizi).toFixed(1)
             }
         })
         computedAll()
