@@ -25,7 +25,7 @@ type Init = {
 
 export default function Order() {
 
-    const [快递, setST] = useState(1.8)
+    const [快递, setST] = useState(2.1)
     const [rengong, setRG] = useState(0.7)
 
     const daizi = 0.2
@@ -55,10 +55,10 @@ export default function Order() {
 
 
     const styles = [
-        { label: '背心+短裤', value: 背心1 + 短裤, },
-        { label: '短袖+短裤', value: 短袖 + 短裤, },
-        { label: '短袖+薄长裤', value: 短裤 + 薄长裤, },
-        { label: '薄卫衣+薄长裤', value: 薄卫衣1 + 薄长裤, num: 2 },
+        { label: '背心 + 短裤', value: 背心1 + 短裤, },
+        { label: '短袖 + 短裤', value: 短袖 + 短裤, },
+        { label: '短袖 + 薄长裤', value: 短裤 + 薄长裤, },
+        { label: '薄卫衣 + 薄长裤', value: 薄卫衣1 + 薄长裤, num: 2 },
 
         { label: '短袖1件', value: 短袖, },
         { label: '短袖2件', value: 短袖 * 2, key: 99 },
@@ -92,7 +92,7 @@ export default function Order() {
 
         { label: '羊羔绒连帽', value: 羊羔绒连帽, },
         { label: '羊羔绒连帽 2件装', value: 羊羔绒连帽 * 2, },
-        { label: '羊羔绒连帽+绒裤', value: 羊羔绒连帽 + 加绒裤子 },
+        { label: '羊羔绒连帽 + 羊羔绒裤', value: 羊羔绒连帽 + 羊羔绒裤 },
 
         { label: '羊羔绒圆领', value: 羊羔绒圆领 },
        
@@ -222,7 +222,7 @@ export default function Order() {
         {dynamicVaildateForm.map((item, index) => {
             return <div key={index} className="flex items-center space-x-2 pb-4">
                 <Select onValueChange={(e) => onSelect(+e, index)} value={item.cb}>
-                    <SelectTrigger className="w-[180px]">
+                    <SelectTrigger className="w-[300px]">
                         <SelectValue placeholder="请选择订单" />
                     </SelectTrigger>
                     <SelectContent>
