@@ -42,7 +42,11 @@ export default function Order() {
     const 薄长裤2件 = 薄长裤 * 2
 
     
-    const 加绒裤子 = 9.2 + rengong - 0.8
+    const 加绒裤子 = 8.4 + rengong
+
+    const 加绒裤子无口袋 = 6.8 + rengong
+
+
     const 羊羔绒裤 = 10.2 + rengong
 
 
@@ -86,6 +90,11 @@ export default function Order() {
  
         { label: '加绒裤子', value: 加绒裤子, },
         { label: '加绒裤子2条装', value: 加绒裤子 * 2, },
+
+        { label: '加绒裤子（无口袋）', value: 加绒裤子无口袋, },
+        { label: '加绒裤子（无口袋）2条装', value: 加绒裤子无口袋 * 2, },
+
+
         { label: '羊羔绒裤', value: 羊羔绒裤, },
 
         { label: '圆领卫衣加绒', value: 圆领卫衣加绒, },
