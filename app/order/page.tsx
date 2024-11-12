@@ -51,7 +51,8 @@ export default function Order() {
 
 
     const 羊羔绒连帽 = 11 + rengong
-    const 羊羔绒圆领 = 9.5
+    const 羊羔绒圆领 = 9.5 + rengong
+    
 
 
     const styles = [
@@ -95,6 +96,7 @@ export default function Order() {
         { label: '羊羔绒连帽 + 羊羔绒裤', value: 羊羔绒连帽 + 羊羔绒裤 },
 
         { label: '羊羔绒圆领', value: 羊羔绒圆领 },
+        { label: '羊羔绒圆领 + 羊羔绒裤子', value: 羊羔绒圆领 + 羊羔绒裤  },
        
         { label: '随机 薄长裤', value: 薄长裤 - rengong , },
         { label: '随机 薄卫衣', value: 薄卫衣1 - rengong },
