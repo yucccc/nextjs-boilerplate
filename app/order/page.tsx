@@ -60,16 +60,16 @@ export default function Order() {
 
 
     const styles = [
-        { label: '背心 + 短裤', value: 背心1 + 短裤, },
-        { label: '短袖 + 短裤', value: 短袖 + 短裤, },
-        { label: '短袖 + 薄长裤', value: 短裤 + 薄长裤, },
-        { label: '薄卫衣 + 薄长裤', value: 薄卫衣1 + 薄长裤, num: 2 },
+        { label: '背心 + 短裤', value: 背心1 + 短裤, key: 1 },
+        { label: '短袖 + 短裤', value: 短袖 + 短裤, key: 2 },
+        { label: '短袖 + 薄长裤', value: 短裤 + 薄长裤, key: 3 },
+        { label: '薄卫衣 + 薄长裤', value: 薄卫衣1 + 薄长裤, num: 2 , key: 4 },
 
-        { label: '短袖1件', value: 短袖, },
-        { label: '短袖2件', value: 短袖 * 2, key: 99 },
-        { label: '短袖3件', value: 短袖 * 3 },
+        { label: '短袖1件', value: 短袖, key: 5 },
+        { label: '短袖2件', value: 短袖 * 2, key:  6 },
+        { label: '短袖3件', value: 短袖 * 3, key:  7 },
 
-        { label: '背心1件', value: 背心1, },
+        { label: '背心1件', value: 背心1, key:  799 },
         { label: '背心2件', value: 背心1 * 2, },
         { label: '背心3件', value: 背心1 * 3, },
         { label: '薄卫衣1件', value: 薄卫衣1 },
@@ -91,8 +91,8 @@ export default function Order() {
         { label: '加绒裤子', value: 加绒裤子, },
         { label: '加绒裤子2条装', value: 加绒裤子 * 2, },
 
-        { label: '加绒裤子（无口袋）', value: 加绒裤子无口袋, },
-        { label: '加绒裤子（无口袋）2条装', value: 加绒裤子无口袋 * 2, },
+        { label: '加绒裤子（无口袋）', value: 加绒裤子无口袋, key:  999 },
+        { label: '加绒裤子（无口袋）2条装', value: 加绒裤子无口袋 * 2, key:  22, },
 
 
         { label: '羊羔绒裤', value: 羊羔绒裤, },
