@@ -55,7 +55,7 @@ function _computedAll(dynamicVaildateForm: any) {
     let total = 0
     let danshu = 0
     let numberOfPieces = 0
-    dynamicVaildateForm.forEach(item => {
+    dynamicVaildateForm.forEach((item: any) => {
         total += +(item.daizi + item.numberOfPieces * +item.cb).toFixed(1)
         danshu += +item.orderNumber
         numberOfPieces += +item.numberOfPieces
@@ -101,7 +101,6 @@ export default function Order() {
 
     const 羊羔绒连帽 = 11 + rengong
     const 羊羔绒圆领 = 9.5 + rengong
-
 
     const d = localStorage.getItem('dynamicVaildateForm')
 
@@ -341,14 +340,13 @@ export default function Order() {
 
                 {
                     tableData.map(item => {
-                        return <TableRow>
+                        return <TableRow key={item.now}>
                             <TableCell className="w-[200px]">{item.now}</TableCell>
                             <TableCell >{item.amount}</TableCell>
                             <TableCell className="text-right"><Button>删除</Button></TableCell>
                         </TableRow>
                     })
                 }
-
 
             </TableBody>
         </Table>
