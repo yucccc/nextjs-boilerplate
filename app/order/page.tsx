@@ -3,6 +3,15 @@ import { Label } from "@/components/ui/label"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import {
+    Table,
+    TableBody,
+    TableCaption,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table"
 
 import {
     Select,
@@ -20,6 +29,40 @@ type Init = {
     numberOfPieces: number;
     cb: string;
 }[]
+function formattedDate() {
+    // 创建一个 Date 对象
+    const today = new Date();
+
+    // 获取年、月、日、时、分
+    const year = today.getFullYear(); // 年（四位数）
+    const month = today.getMonth() + 1; // 月（0-11，需要加 1）
+    const day = today.getDate(); // 日（1-31）
+    const hours = today.getHours(); // 时（0-23）
+    const minutes = today.getMinutes(); // 分（0-59）
+    const seconds = today.getSeconds(); // 秒（0-59）
+    const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+
+
+    // 格式化月份和分钟，确保两位数显示
+    const formattedMonth = month < 10 ? `0${month}` : month;
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+
+    // 组合成完整的日期时间字符串
+    return `${year}-${formattedMonth}-${day} ${hours}:${formattedMinutes}:${formattedSeconds}`
+}
+
+function _computedAll(dynamicVaildateForm: any) {
+    let total = 0
+    let danshu = 0
+    let numberOfPieces = 0
+    dynamicVaildateForm.forEach(item => {
+        total += +(item.daizi + item.numberOfPieces * +item.cb).toFixed(1)
+        danshu += +item.orderNumber
+        numberOfPieces += +item.numberOfPieces
+    })
+    return { total, danshu, numberOfPieces }
+}
+const daizi = 0.2
 
 
 
@@ -28,7 +71,7 @@ export default function Order() {
     const [快递, setST] = useState(2.1)
     const [rengong, setRG] = useState(0.7)
 
-    const daizi = 0.2
+
 
     const 短袖 = 4.6 + rengong
     const 短裤 = 4.9 + rengong
@@ -39,9 +82,11 @@ export default function Order() {
     const 长假两件 = 6.4 + rengong
     const 短假两件 = 9.5 + rengong
     const 薄长裤 = 6.7 + rengong
-    const 薄长裤2件 = 薄长裤 * 2
 
-    
+    const 薄长裤2件 = 薄长裤 * 2
+    const 薄长裤1无口袋 = 4.9 + rengong
+
+
     const 加绒裤子 = 8.4 + rengong
 
     const 加绒裤子无口袋 = 6.8 + rengong
@@ -56,20 +101,33 @@ export default function Order() {
 
     const 羊羔绒连帽 = 11 + rengong
     const 羊羔绒圆领 = 9.5 + rengong
-    
 
+
+    const d = localStorage.getItem('dynamicVaildateForm')
+
+    const defaultOrder = [{
+        orderNumber: 1,
+        daizi: daizi,
+        numberOfPieces: 1,
+        cb: '',
+    }]
+    
+    const init = d ? JSON.parse(d) as Init : defaultOrder
+    console.log(init)
+    const initDefaultAll = _computedAll(init)
+    
 
     const styles = [
         { label: '背心 + 短裤', value: 背心1 + 短裤, key: 1 },
         { label: '短袖 + 短裤', value: 短袖 + 短裤, key: 2 },
         { label: '短袖 + 薄长裤', value: 短裤 + 薄长裤, key: 3 },
-        { label: '薄卫衣 + 薄长裤', value: 薄卫衣1 + 薄长裤, num: 2 , key: 4 },
+        { label: '薄卫衣 + 薄长裤', value: 薄卫衣1 + 薄长裤, num: 2, key: 4 },
 
         { label: '短袖1件', value: 短袖, key: 5 },
-        { label: '短袖2件', value: 短袖 * 2, key:  6 },
-        { label: '短袖3件', value: 短袖 * 3, key:  7 },
+        { label: '短袖2件', value: 短袖 * 2, key: 6 },
+        { label: '短袖3件', value: 短袖 * 3, key: 7 },
 
-        { label: '背心1件', value: 背心1, key:  799 },
+        { label: '背心1件', value: 背心1, key: 799 },
         { label: '背心2件', value: 背心1 * 2, },
         { label: '背心3件', value: 背心1 * 3, },
         { label: '薄卫衣1件', value: 薄卫衣1 },
@@ -82,17 +140,24 @@ export default function Order() {
         { label: '长T恤2件', value: 长T恤 * 2, },
 
         { label: '薄长裤1件', value: 薄长裤, },
+
         { label: '薄长裤2件', value: 薄长裤2件, key: 4 },
+
+        { label: '薄长裤1件(无口袋)', value: 薄长裤1无口袋, key: '薄长裤1件(无口袋)' },
+
+        { label: '薄长裤2件(无口袋)', value: 薄长裤1无口袋 * 2, key: '薄长裤2件(无口袋)' },
+
+
 
         { label: '长假两件1件', value: 长假两件, },
         { label: '长假两件2件', value: 长假两件 * 2, },
         { label: '短假两件', value: 短假两件, },
- 
+
         { label: '加绒裤子', value: 加绒裤子, },
         { label: '加绒裤子2条装', value: 加绒裤子 * 2, },
 
-        { label: '加绒裤子（无口袋）', value: 加绒裤子无口袋, key:  999 },
-        { label: '加绒裤子（无口袋）2条装', value: 加绒裤子无口袋 * 2, key:  22, },
+        { label: '加绒裤子（无口袋）', value: 加绒裤子无口袋, key: 999 },
+        { label: '加绒裤子（无口袋）2条装', value: 加绒裤子无口袋 * 2, key: 22, },
 
 
         { label: '羊羔绒裤', value: 羊羔绒裤, },
@@ -105,36 +170,26 @@ export default function Order() {
         { label: '羊羔绒连帽 + 羊羔绒裤', value: 羊羔绒连帽 + 羊羔绒裤 },
 
         { label: '羊羔绒圆领', value: 羊羔绒圆领 },
-        { label: '羊羔绒圆领 + 羊羔绒裤子', value: 羊羔绒圆领 + 羊羔绒裤  },
-       
-        { label: '随机 薄长裤', value: 薄长裤 - rengong , },
+        { label: '羊羔绒圆领 + 羊羔绒裤子', value: 羊羔绒圆领 + 羊羔绒裤 },
+
+        { label: '随机 薄长裤', value: 薄长裤 - rengong, },
         { label: '随机 薄卫衣', value: 薄卫衣1 - rengong },
-        { label: '随机 羊羔绒圆领', value: 羊羔绒圆领 - rengong , },
-      
-        { label: '随机 羊羔绒连帽', value: 羊羔绒连帽 - rengong , },
+        { label: '随机 羊羔绒圆领', value: 羊羔绒圆领 - rengong, },
+
+        { label: '随机 羊羔绒连帽', value: 羊羔绒连帽 - rengong, },
         { label: '随机 加绒裤子', value: 加绒裤子 - rengong, },
         { label: '随机 羊羔绒裤', value: 羊羔绒裤 - rengong, },
 
     ]
 
-    const [dynamicVaildateForm, setDynamicVaildateForm] = useState([{ cb: '', orderNumber: 1, numberOfPieces: 1, daizi: daizi }])
-
-    useEffect(() => {
-        const d = localStorage.getItem('dynamicVaildateForm')
-        const init = d ? JSON.parse(d) as Init : [{
-            orderNumber: 1,
-            daizi: daizi,
-            numberOfPieces: 1,
-            cb: '',
-        }]
-        setDynamicVaildateForm(init)
-    }, [])
+    const [dynamicVaildateForm, setDynamicVaildateForm] = useState(init)
 
 
     function addOrder() {
         computedAll()
-        setDynamicVaildateForm([...dynamicVaildateForm, { cb: '', orderNumber: 1, numberOfPieces: 1, daizi: daizi }])
+        setDynamicVaildateForm([...dynamicVaildateForm, ...defaultOrder])
     }
+
 
     useEffect(() => {
         localStorage.setItem('dynamicVaildateForm', JSON.stringify(dynamicVaildateForm))
@@ -177,25 +232,22 @@ export default function Order() {
         setDynamicVaildateForm([...dynamicVaildateForm])
 
     }
-    const [all, setAll] = useState({ total: 0, danshu: 0, numberOfPieces: 0 })
+    const [all, setAll] = useState(initDefaultAll)
 
     function computedAll() {
-        let total = 0
-        let danshu = 0
-        let numberOfPieces = 0
-        dynamicVaildateForm.forEach(item => {
-            total += +(item.daizi + item.numberOfPieces * +item.cb).toFixed(1)
-            danshu += +item.orderNumber
-            numberOfPieces += +item.numberOfPieces
-            // 重件数
-            console.log(item)
-        })
+        const { total, danshu, numberOfPieces } = _computedAll(dynamicVaildateForm)
         setAll({ total, danshu, numberOfPieces })
     }
     function clearOrder() {
         setDynamicVaildateForm([])
     }
-
+    const [tableData, setTableData] = useState<{ now: string; amount: number }[]>([])
+    // 录入系统
+    function computerHandeler() {
+        const now = formattedDate()
+        const amount = all.total
+        setTableData([{ now, amount }, ...tableData])
+    }
 
 
     return <div className="p-10">
@@ -271,6 +323,35 @@ export default function Order() {
             总单数： {all.danshu} 总套数：{all.numberOfPieces} 总金额：{all.total}
         </div>
         <Button onClick={addOrder} className="w-full my-6">添加订单</Button>
+
+        <Button onClick={computerHandeler} className="w-full my-6">录入</Button>
+
+
+        <Table>
+            <TableCaption>总待结算金额： { } <Button variant="destructive">一键结算</Button></TableCaption>
+
+            <TableHeader>
+                <TableRow>
+                    <TableHead className="w-[100px]">打单时间</TableHead>
+                    <TableHead>金额</TableHead>
+                    <TableHead className="text-right">Amount</TableHead>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+
+                {
+                    tableData.map(item => {
+                        return <TableRow>
+                            <TableCell className="w-[200px]">{item.now}</TableCell>
+                            <TableCell >{item.amount}</TableCell>
+                            <TableCell className="text-right"><Button>删除</Button></TableCell>
+                        </TableRow>
+                    })
+                }
+
+
+            </TableBody>
+        </Table>
 
     </div>
 
