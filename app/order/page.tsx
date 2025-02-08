@@ -102,7 +102,7 @@ export default function Order() {
     const 羊羔绒连帽 = 11 + rengong
     const 羊羔绒圆领 = 9.5 + rengong
 
-    const d = localStorage.getItem('dynamicVaildateForm')
+    const d = global?.window !== undefined ? localStorage.getItem('dynamicVaildateForm') : null
 
     const defaultOrder = [{
         orderNumber: 1,
@@ -110,9 +110,14 @@ export default function Order() {
         numberOfPieces: 1,
         cb: '',
     }]
+
+
     
     const init = d ? JSON.parse(d) as Init : defaultOrder
     console.log(init)
+
+
+    
     const initDefaultAll = _computedAll(init)
     
 
