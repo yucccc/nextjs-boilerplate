@@ -84,7 +84,8 @@ export default function Order() {
     const 薄长裤 = 6.7 + rengong
 
     const 薄长裤2件 = 薄长裤 * 2
-    const 薄长裤1无口袋 = 4.9 + rengong
+    
+    const 薄长裤1无口袋 = 4.3 + rengong
 
 
     const 加绒裤子 = 8.4 + rengong
