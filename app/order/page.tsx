@@ -73,36 +73,6 @@ export default function Order() {
 
 
 
-    const 短袖 = 4.6 + rengong
-    const 短裤 = 4.9 + rengong
-    const 背心1 = 4.4 + rengong
-    const 薄卫衣1 = 6.9 + rengong
-    const 薄卫衣2 = 薄卫衣1 * 2
-    const 长T恤 = 5.9 + rengong
-    const 长假两件 = 6.4 + rengong
-    const 短假两件 = 9.5 + rengong
-    const 薄长裤 = 6.7 + rengong
-
-    const 薄长裤2件 = 薄长裤 * 2
-    
-    const 薄长裤1无口袋 = 4.3 + rengong
-
-
-    const 加绒裤子 = 8.4 + rengong
-
-    const 加绒裤子无口袋 = 6.8 + rengong
-
-
-    const 羊羔绒裤 = 10.2 + rengong
-
-
-    // 加绒
-    const 圆领卫衣加绒 = 9 + rengong
-
-
-    const 羊羔绒连帽 = 11 + rengong
-    const 羊羔绒圆领 = 9.5 + rengong
-
     const d = global?.window !== undefined ? localStorage.getItem('dynamicVaildateForm') : null
 
     const defaultOrder = [{
@@ -122,70 +92,7 @@ export default function Order() {
     const initDefaultAll = _computedAll(init)
     
 
-    const styles = [
-        { label: '背心 + 短裤', value: 背心1 + 短裤, key: 1 },
-        { label: '短袖 + 短裤', value: 短袖 + 短裤, key: 2 },
-        { label: '短袖 + 薄长裤', value: 短裤 + 薄长裤, key: 3 },
-        { label: '薄卫衣 + 薄长裤', value: 薄卫衣1 + 薄长裤, num: 2, key: 4 },
-
-        { label: '短袖1件', value: 短袖, key: 5 },
-        { label: '短袖2件', value: 短袖 * 2, key: 6 },
-        { label: '短袖3件', value: 短袖 * 3, key: 7 },
-
-        { label: '背心1件', value: 背心1, key: 799 },
-        { label: '背心2件', value: 背心1 * 2, },
-        { label: '背心3件', value: 背心1 * 3, },
-        { label: '薄卫衣1件', value: 薄卫衣1 },
-        { label: '薄卫衣2件', value: 薄卫衣2 },
-        { label: '短裤1件', value: 短裤 },
-        { label: '短裤2件', value: 短裤 * 2 },
-
-
-        { label: '长T恤1件', value: 长T恤, },
-        { label: '长T恤2件', value: 长T恤 * 2, },
-
-        { label: '薄长裤1件', value: 薄长裤, },
-
-        { label: '薄长裤2件', value: 薄长裤2件, key: 4 },
-
-        { label: '薄长裤1件(无口袋)', value: 薄长裤1无口袋, key: '薄长裤1件(无口袋)' },
-
-        { label: '薄长裤2件(无口袋)', value: 薄长裤1无口袋 * 2, key: '薄长裤2件(无口袋)' },
-
-
-
-        { label: '长假两件1件', value: 长假两件, },
-        { label: '长假两件2件', value: 长假两件 * 2, },
-        { label: '短假两件', value: 短假两件, },
-
-        { label: '加绒裤子', value: 加绒裤子, },
-        { label: '加绒裤子2条装', value: 加绒裤子 * 2, },
-
-        { label: '加绒裤子（无口袋）', value: 加绒裤子无口袋, key: 999 },
-        { label: '加绒裤子（无口袋）2条装', value: 加绒裤子无口袋 * 2, key: 22, },
-
-
-        { label: '羊羔绒裤', value: 羊羔绒裤, },
-
-        { label: '圆领卫衣加绒', value: 圆领卫衣加绒, },
-        { label: '圆领卫衣加绒 + 加绒裤', value: 圆领卫衣加绒 + 加绒裤子, },
-
-        { label: '羊羔绒连帽', value: 羊羔绒连帽, },
-        { label: '羊羔绒连帽 2件装', value: 羊羔绒连帽 * 2, },
-        { label: '羊羔绒连帽 + 羊羔绒裤', value: 羊羔绒连帽 + 羊羔绒裤 },
-
-        { label: '羊羔绒圆领', value: 羊羔绒圆领 },
-        { label: '羊羔绒圆领 + 羊羔绒裤子', value: 羊羔绒圆领 + 羊羔绒裤 },
-
-        { label: '随机 薄长裤', value: 薄长裤 - rengong, },
-        { label: '随机 薄卫衣', value: 薄卫衣1 - rengong },
-        { label: '随机 羊羔绒圆领', value: 羊羔绒圆领 - rengong, },
-
-        { label: '随机 羊羔绒连帽', value: 羊羔绒连帽 - rengong, },
-        { label: '随机 加绒裤子', value: 加绒裤子 - rengong, },
-        { label: '随机 羊羔绒裤', value: 羊羔绒裤 - rengong, },
-
-    ]
+    const styles = global?.window !== undefined ? JSON.parse(localStorage.getItem('message') || '') : null
 
     const [dynamicVaildateForm, setDynamicVaildateForm] = useState(init)
 
@@ -255,6 +162,8 @@ export default function Order() {
     }
 
 
+    if (!styles) return null 
+
     return <div className="p-10">
 
         <div>
@@ -295,7 +204,7 @@ export default function Order() {
                     </SelectTrigger>
                     <SelectContent>
                         {
-                            styles.map(item => {
+                            styles.map((item: {label: string, value: number}) => {
                                 return <SelectItem key={item.label} value={item.value + ''}>{item.label}</SelectItem>
                             })
                         }
