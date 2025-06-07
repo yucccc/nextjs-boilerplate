@@ -14,7 +14,6 @@ import { z } from "zod"
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -32,12 +31,7 @@ const FormSchema = z.object({
     )
 })
 
-type Init = {
-    orderNumber: number;
-    daizi: number;
-    numberOfPieces: number;
-    cb: string;
-}[]
+
 
 
 const daizi = 0.2
@@ -81,87 +75,74 @@ export default function Order() {
     const 羊羔绒连帽 = 11 + rengong
     const 羊羔绒圆领 = 9.5 + rengong
 
-    const d = global?.window !== undefined ? localStorage.getItem('dynamicVaildateForm') : null
 
-    const defaultOrder = [{
-        orderNumber: 1,
-        daizi: daizi,
-        numberOfPieces: 1,
-        cb: '',
-    }]
-
-
-
-    const init = d ? JSON.parse(d) as Init : defaultOrder
-
-
+    const daizi = 0.2
     // 初始信息
     const defaultMessage = [
-        { label: '背心 + 短裤', value: +(背心1 + 短裤).toFixed(1) },
-        { label: '短袖 + 短裤', value: 短袖 + 短裤, },
-        { label: '短袖 + 薄长裤', value: 短裤 + 薄长裤, },
-        { label: '薄卫衣 + 薄长裤', value: 薄卫衣1 + 薄长裤, num: 2, },
-        { label: '短袖1件', value: 短袖, },
-        { label: '短袖2件', value: 短袖 * 2, },
-        { label: '短袖3件', value: 短袖 * 3, },
-        { label: '背心1件', value: 背心1, },
-        { label: '背心2件', value: 背心1 * 2, },
-        { label: '背心3件', value: 背心1 * 3, },
-        { label: '薄卫衣1件', value: 薄卫衣1 },
-        { label: '薄卫衣2件', value: 薄卫衣2 },
-        { label: '短裤1件', value: 短裤 },
-        { label: '短裤2件', value: 短裤 * 2 },
-        { label: '长T恤1件', value: 长T恤, },
-        { label: '长T恤2件', value: 长T恤 * 2, },
+        { label: '背心 + 短裤', value: 背心1 + 短裤 + daizi },
+        { label: '短袖 + 短裤', value: 短袖 + 短裤 + daizi, },
+        { label: '短袖 + 薄长裤', value: 短裤 + 薄长裤.toFixed(1), },
+        { label: '薄卫衣 + 薄长裤', value: 薄卫衣1 + 薄长裤 + daizi, num: 2, },
+        { label: '短袖1件', value: 短袖 + daizi, },
+        { label: '短袖2件', value: 短袖 * 2 + daizi, },
+        { label: '短袖3件', value: 短袖 * 3 + daizi, },
+        { label: '背心1件', value: 背心1 + daizi, },
+        { label: '背心2件', value: 背心1 * 2 + daizi, },
+        { label: '背心3件', value: 背心1 * 3 + daizi, },
+        { label: '薄卫衣1件', value: 薄卫衣1 + daizi },
+        { label: '薄卫衣2件', value: 薄卫衣2 + daizi },
+        { label: '短裤1件', value: 短裤 + daizi },
+        { label: '短裤2件', value: 短裤 * 2 + daizi },
+        { label: '长T恤1件', value: 长T恤 + daizi, },
+        { label: '长T恤2件', value: 长T恤 * 2 + daizi, },
 
-        { label: '薄长裤1件', value: 薄长裤, },
+        { label: '薄长裤1件', value: 薄长裤 + daizi, },
 
-        { label: '薄长裤2件', value: 薄长裤2件, },
+        { label: '薄长裤2件', value: 薄长裤2件 + daizi, },
 
-        { label: '薄长裤1件(无口袋)', value: 薄长裤1无口袋, },
+        { label: '薄长裤1件(无口袋)', value: 薄长裤1无口袋 + daizi, },
 
-        { label: '薄长裤2件(无口袋)', value: 薄长裤1无口袋 * 2, },
-
-
-
-        { label: '长假两件1件', value: 长假两件, },
-        { label: '长假两件2件', value: 长假两件 * 2, },
-        { label: '短假两件', value: 短假两件, },
-
-        { label: '加绒裤子', value: 加绒裤子, },
-        { label: '加绒裤子2条装', value: 加绒裤子 * 2, },
-
-        { label: '加绒裤子（无口袋）', value: 加绒裤子无口袋, key: 999 },
-        { label: '加绒裤子（无口袋）2条装', value: 加绒裤子无口袋 * 2, key: 22, },
+        { label: '薄长裤2件(无口袋)', value: 薄长裤1无口袋 * 2 + daizi, },
 
 
-        { label: '羊羔绒裤', value: 羊羔绒裤, },
 
-        { label: '圆领卫衣加绒', value: 圆领卫衣加绒, },
-        { label: '圆领卫衣加绒 + 加绒裤', value: 圆领卫衣加绒 + 加绒裤子, },
+        { label: '长假两件1件', value: 长假两件 + daizi, },
+        { label: '长假两件2件', value: 长假两件 * 2 + daizi, },
+        { label: '短假两件', value: 短假两件 + daizi, },
 
-        { label: '羊羔绒连帽', value: 羊羔绒连帽, },
-        { label: '羊羔绒连帽 2件装', value: 羊羔绒连帽 * 2, },
-        { label: '羊羔绒连帽 + 羊羔绒裤', value: 羊羔绒连帽 + 羊羔绒裤 },
+        { label: '加绒裤子', value: 加绒裤子 + daizi, },
+        { label: '加绒裤子2条装', value: 加绒裤子 * 2 + daizi, },
 
-        { label: '羊羔绒圆领', value: 羊羔绒圆领 },
-        { label: '羊羔绒圆领 + 羊羔绒裤子', value: 羊羔绒圆领 + 羊羔绒裤 },
+        { label: '加绒裤子（无口袋）', value: 加绒裤子无口袋 + daizi, key: 999 },
+        { label: '加绒裤子（无口袋）2条装', value: 加绒裤子无口袋 * 2 + daizi, key: 22, },
 
-        { label: '随机 薄长裤', value: 薄长裤 - rengong, },
-        { label: '随机 薄卫衣', value: 薄卫衣1 - rengong },
-        { label: '随机 羊羔绒圆领', value: 羊羔绒圆领 - rengong, },
 
-        { label: '随机 羊羔绒连帽', value: 羊羔绒连帽 - rengong, },
-        { label: '随机 加绒裤子', value: 加绒裤子 - rengong, },
-        { label: '随机 羊羔绒裤', value: 羊羔绒裤 - rengong, },
+        { label: '羊羔绒裤', value: 羊羔绒裤 + daizi, },
+
+        { label: '圆领卫衣加绒', value: 圆领卫衣加绒 + daizi, },
+        { label: '圆领卫衣加绒 + 加绒裤', value: 圆领卫衣加绒 + 加绒裤子 + daizi, },
+
+        { label: '羊羔绒连帽', value: 羊羔绒连帽 + daizi, },
+        { label: '羊羔绒连帽 2件装', value: 羊羔绒连帽 * 2 + daizi, },
+        { label: '羊羔绒连帽 + 羊羔绒裤', value: 羊羔绒连帽 + 羊羔绒裤 + daizi },
+
+        { label: '羊羔绒圆领', value: 羊羔绒圆领 + daizi },
+        { label: '羊羔绒圆领 + 羊羔绒裤子', value: 羊羔绒圆领 + 羊羔绒裤 + daizi },
+
+        { label: '随机 薄长裤', value: 薄长裤 - rengong + daizi, },
+        { label: '随机 薄卫衣', value: 薄卫衣1 - rengong + daizi },
+        { label: '随机 羊羔绒圆领', value: 羊羔绒圆领 - rengong + daizi, },
+
+        { label: '随机 羊羔绒连帽', value: 羊羔绒连帽 - rengong + daizi, },
+        { label: '随机 加绒裤子', value: 加绒裤子 - rengong + daizi, },
+        { label: '随机 羊羔绒裤', value: 羊羔绒裤 - rengong + daizi, },
         { label: '短裤-无口袋-聚酯纤维', value: 短裤无口袋聚酯纤维 }
 
     ].map(item => ({
         ...item,
-        value: +item.value.toFixed(1)
+        value: (+item.value).toFixed(1)
     }))
 
-    const [dynamicVaildateForm, setDynamicVaildateForm] = useState(init)
 
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),

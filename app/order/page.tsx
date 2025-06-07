@@ -56,20 +56,19 @@ function _computedAll(dynamicVaildateForm: any) {
     let danshu = 0
     let numberOfPieces = 0
     dynamicVaildateForm.forEach((item: any) => {
-        total += +(item.daizi + item.numberOfPieces * +item.cb).toFixed(1)
+        total += +(item.numberOfPieces * +item.cb).toFixed(1)
         danshu += +item.orderNumber
         numberOfPieces += +item.numberOfPieces
     })
     return { total, danshu, numberOfPieces }
 }
-const daizi = 0.2
 
 
 
 export default function Order() {
 
-    const [快递, setST] = useState(2.1)
-    const [rengong, setRG] = useState(0.7)
+    // const [快递, setST] = useState(2.1)
+    // const [rengong, setRG] = useState(0.7)
 
 
 
@@ -77,7 +76,6 @@ export default function Order() {
 
     const defaultOrder = [{
         orderNumber: 1,
-        daizi: daizi,
         numberOfPieces: 1,
         cb: '',
     }]
@@ -118,7 +116,6 @@ export default function Order() {
         dynamicVaildateForm.forEach((item, i) => {
             if (i === index) {
                 item.orderNumber = value
-                item.daizi = +(value * daizi).toFixed(1)
             }
         })
         computedAll()
@@ -166,34 +163,6 @@ export default function Order() {
 
     return <div className="p-10">
 
-        <div>
-            <div className="flex items-center space-x-2">
-                <Label htmlFor="kuaidi">快递费用（单）：</Label>
-                <Input
-                    className="w-auto"
-                    id="kuaidi"
-                    type="number"
-                    onChange={(e) => setST(+e.target.value)}
-                    value={快递}
-                    placeholder="快递费用"
-                />
-            </div>
-        </div>
-
-        <div className="mt-2">
-            <div className="flex items-center space-x-2">
-                <Label htmlFor="rengong">人工费用（件）：</Label>
-                <Input
-                    className="w-auto"
-                    id="rengong"
-                    type="number"
-                    onChange={(e) => setRG(+e.target.value)}
-                    value={rengong}
-                    placeholder="人工费用"
-                />
-            </div>
-        </div>
-
         <Button onClick={clearOrder} className="w-full my-6 bg-orange-400">清空</Button>
 
         {dynamicVaildateForm.map((item, index) => {
@@ -228,7 +197,7 @@ export default function Order() {
                     id="numberOfPieces"
                     placeholder="件数"
                 />
-                <span className="flex-auto">袋子：{item.daizi} + 单套（人工+货本）：{(+item.cb).toFixed(1)} (个本： {(+item.cb) + daizi + 快递}) = {(item.numberOfPieces * +item.cb + item.daizi).toFixed(1)} </span>
+                <span className="flex-auto">单套：{(+item.cb).toFixed(1)}  = 总：{(item.numberOfPieces * +item.cb).toFixed(1)} </span>
                 <Button onClick={() => deleteOrder(index)}>删除</Button>
             </div>
         })
