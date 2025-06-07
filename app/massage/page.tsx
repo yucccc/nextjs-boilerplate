@@ -27,7 +27,7 @@ const FormSchema = z.object({
             label: z.string().min(2, {
                 message: "Username must be at least 2 characters.",
             }),
-            value: z.number().min(0)
+            value: z.any()
         })
     )
 })
@@ -95,8 +95,8 @@ export default function Order() {
     const init = d ? JSON.parse(d) as Init : defaultOrder
 
 
-
-    const message = [
+    // 初始信息
+    const defaultMessage = [
         { label: '背心 + 短裤', value: +(背心1 + 短裤).toFixed(1) },
         { label: '短袖 + 短裤', value: 短袖 + 短裤, },
         { label: '短袖 + 薄长裤', value: 短裤 + 薄长裤, },
@@ -166,20 +166,30 @@ export default function Order() {
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
         defaultValues: {
-            message: message
+            message: localStorage.getItem('message') ?
+                JSON.parse(localStorage.getItem('message') || '') : defaultMessage
+                || defaultMessage
         }
     })
 
-    const { fields } = useFieldArray({ name: 'message', control: form.control });
+    const { fields, append, prepend } = useFieldArray({ name: 'message', control: form.control });
 
 
     function onSubmit(data: z.infer<typeof FormSchema>) {
-        console.log(data)
-        localStorage.setItem('message', JSON.stringify(data.message))
+        console.log('保存', data.message)
+        try {
+            localStorage.setItem('message', JSON.stringify(data.message))
+            console.log('保存成功')
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    function onAdd() {
+        console.log('添加')
+        prepend({ label: '', value: 0 })
     }
 
     return <div className="p-10">
-
         <div>
             <div className="flex items-center space-x-2">
                 <Label htmlFor="kuaidi">快递费用（单）：</Label>
@@ -211,8 +221,8 @@ export default function Order() {
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
                 {
-                    fields.map((field, index) => (
-                        <div key={index} className="flex">
+                    fields.map((fields, index) => (
+                        <div key={fields.id} className="flex">
                             <FormField
                                 control={form.control}
                                 name={`message.${index}.label`}
@@ -246,7 +256,7 @@ export default function Order() {
                 <Button type="submit">Submit</Button>
             </form>
         </Form>
-        <Button >添加</Button>
+        <Button onClick={onAdd}>添加</Button>
 
 
     </div>
