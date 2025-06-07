@@ -26,7 +26,8 @@ const FormSchema = z.object({
             label: z.string().min(2, {
                 message: "Username must be at least 2 characters.",
             }),
-            value: z.any()
+            value: z.any(),
+            remark: z.string().optional()
         })
     )
 })
@@ -76,7 +77,6 @@ export default function Order() {
     const 羊羔绒圆领 = 9.5 + rengong
 
 
-    const daizi = 0.2
     // 初始信息
     const defaultMessage = [
         { label: '背心 + 短裤', value: 背心1 + 短裤 + daizi },
@@ -208,7 +208,7 @@ export default function Order() {
                                 control={form.control}
                                 name={`message.${index}.label`}
                                 render={({ field }) => (
-                                    <FormItem className="f1">
+                                    <FormItem className="w-96">
                                         <FormLabel>产品名</FormLabel>
                                         <FormControl>
                                             <Input  {...field} />
@@ -226,6 +226,20 @@ export default function Order() {
                                         <FormLabel>价格</FormLabel>
                                         <FormControl>
                                             <Input  {...field} type="number" />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name={`message.${index}.remark`}
+                                render={({ field }) => (
+                                    <FormItem className="ml-10 w-96">
+                                        <FormLabel>备注</FormLabel>
+                                        <FormControl>
+                                            <Input  {...field} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
