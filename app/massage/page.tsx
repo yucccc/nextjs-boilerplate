@@ -166,9 +166,9 @@ export default function Order() {
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
         defaultValues: {
-            message: localStorage.getItem('message') ?
+            message: global?.window !== undefined ? localStorage.getItem('message') ?
                 JSON.parse(localStorage.getItem('message') || '') : defaultMessage
-                || defaultMessage
+                || defaultMessage : defaultMessage
         }
     })
 
