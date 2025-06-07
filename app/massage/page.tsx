@@ -4,7 +4,7 @@ import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 
 
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -248,10 +248,13 @@ export default function Order() {
                         </div>
                     ))
                 }
-                <Button type="submit">Submit</Button>
+                <Button type="submit" className="w-full">保存</Button>
             </form>
         </Form>
-        <Button onClick={onAdd}>添加</Button>
+        <div>
+            <Button onClick={onAdd} className="w-full mt-10">添加</Button>
+
+        </div>
 
 
     </div>
