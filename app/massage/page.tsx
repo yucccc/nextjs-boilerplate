@@ -10,7 +10,6 @@ import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, useFieldArray } from "react-hook-form"
 import { z } from "zod"
-import { useToast } from "@/hooks/use-toast"
 
 import {
     Form,
@@ -48,7 +47,6 @@ export default function Order() {
 
     const [快递, setST] = useState(2.1)
     const [rengong, setRG] = useState(0.7)
-    const { toast } = useToast()
 
 
     const 短裤无口袋聚酯纤维 = 3.9
