@@ -21,14 +21,19 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 
-type Init = {
+type OrderItem = {
     orderNumber: number;
-    daizi: number;
     numberOfPieces: number;
     cb: string;
-}[]
+};
+
+type Style = {
+    label: string;
+    value: number;
+}
+
 function formattedDate() {
     // 创建一个 Date 对象
     const today = new Date();
@@ -51,7 +56,7 @@ function formattedDate() {
     return `${year}-${formattedMonth}-${day} ${hours}:${formattedMinutes}:${formattedSeconds}`
 }
 
-function _computedAll(dynamicVaildateForm: any) {
+function _computedAll(dynamicVaildateForm: OrderItem[]) {
     let total = 0
     let danshu = 0
     let numberOfPieces = 0
@@ -72,81 +77,64 @@ export default function Order() {
 
 
 
-    const d = global?.window !== undefined ? localStorage.getItem('dynamicVaildateForm') : null
-
-    const defaultOrder = [{
+    const defaultOrder: OrderItem[] = [{
         orderNumber: 1,
         numberOfPieces: 1,
         cb: '',
     }]
 
+    const [isClient, setIsClient] = useState(false)
+    const [styles, setStyles] = useState<Style[] | null>(null)
+    const [dynamicVaildateForm, setDynamicVaildateForm] = useState<OrderItem[]>(defaultOrder);
 
-    
-    const init = d ? JSON.parse(d) as Init : defaultOrder
-    console.log(init)
 
+    useEffect(() => {
+        const savedForm = localStorage.getItem('dynamicVaildateForm');
+        if (savedForm) {
+            setDynamicVaildateForm(JSON.parse(savedForm));
+        }
 
-    
-    const initDefaultAll = _computedAll(init)
-    
-
-    const styles = global?.window !== undefined ? JSON.parse(localStorage.getItem('message') || '') : null
-
-    const [dynamicVaildateForm, setDynamicVaildateForm] = useState(init)
+        const savedStyles = localStorage.getItem('message');
+        if (savedStyles) {
+            setStyles(JSON.parse(savedStyles))
+        }
+        setIsClient(true)
+    }, [])
 
 
     function addOrder() {
-        computedAll()
+        
         setDynamicVaildateForm([...dynamicVaildateForm, ...defaultOrder])
     }
 
 
     useEffect(() => {
-        localStorage.setItem('dynamicVaildateForm', JSON.stringify(dynamicVaildateForm))
-    }, [dynamicVaildateForm])
+        if (isClient) {
+            localStorage.setItem('dynamicVaildateForm', JSON.stringify(dynamicVaildateForm))
+        }
+    }, [dynamicVaildateForm, isClient])
 
 
     function deleteOrder(index: number) {
         const n = dynamicVaildateForm.filter((t, i) => i !== index)
-        computedAll()
         setDynamicVaildateForm(n)
     }
     // 订单数
-    function onChangeOrderNumber(value: number, index: number) {
-        dynamicVaildateForm.forEach((item, i) => {
+    function updateOrderItem(index: number, newValues: Partial<OrderItem>) {
+        const newForm = dynamicVaildateForm.map((item, i) => {
             if (i === index) {
-                item.orderNumber = value
+                return { ...item, ...newValues };
             }
-        })
-        computedAll()
-        setDynamicVaildateForm([...dynamicVaildateForm])
+            return item;
+        });
+        setDynamicVaildateForm(newForm);
     }
 
-    function onChangeNumberOfPieces(value: number, index: number) {
-        dynamicVaildateForm.forEach((item, i) => {
-            if (i === index) {
-                item.numberOfPieces = value
-            }
-        })
-        computedAll()
-        setDynamicVaildateForm([...dynamicVaildateForm])
-    }
-    function onSelect(v: number, index: number) {
-        dynamicVaildateForm.forEach((item, i) => {
-            if (i === index) {
-                item.cb = v + ''
-            }
-        })
-        computedAll()
-        setDynamicVaildateForm([...dynamicVaildateForm])
+    const all = useMemo(() => {
+        return _computedAll(dynamicVaildateForm);
+    }, [dynamicVaildateForm]);
 
-    }
-    const [all, setAll] = useState(initDefaultAll)
-
-    function computedAll() {
-        const { total, danshu, numberOfPieces } = _computedAll(dynamicVaildateForm)
-        setAll({ total, danshu, numberOfPieces })
-    }
+   
     function clearOrder() {
         setDynamicVaildateForm([])
     }
@@ -159,7 +147,7 @@ export default function Order() {
     }
 
 
-    if (!styles) return null 
+    if (!isClient || !styles) return null 
 
     return <div className="p-10">
 
@@ -167,7 +155,7 @@ export default function Order() {
 
         {dynamicVaildateForm.map((item, index) => {
             return <div key={index} className="flex items-center space-x-2 pb-4">
-                <Select onValueChange={(e) => onSelect(+e, index)} value={item.cb}>
+                <Select onValueChange={(e) => updateOrderItem(index, { cb: e })} value={item.cb}>
                     <SelectTrigger className="w-[300px]">
                         <SelectValue placeholder="请选择订单" />
                     </SelectTrigger>
@@ -183,13 +171,13 @@ export default function Order() {
                     type="number"
                     min={1}
                     className="w-auto"
-                    onChange={e => onChangeOrderNumber(+e.target.value, index)}
+                    onChange={e => updateOrderItem(index, { orderNumber: +e.target.value })}
                     value={item.orderNumber}
                     id="orderNumber"
                     placeholder="订单数"
                 />
                 <Input
-                    onChange={e => onChangeNumberOfPieces(+e.target.value, index)}
+                    onChange={e => updateOrderItem(index, { numberOfPieces: +e.target.value })}
                     type="number"
                     min={1}
                     className="w-auto"
