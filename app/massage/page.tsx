@@ -76,69 +76,115 @@ export default function Order() {
     const 羊羔绒连帽 = 11 + rengong
     const 羊羔绒圆领 = 9.5 + rengong
 
-
+    // 默认信息改一下 [{"label":"短袖(白或黑)+短裤(聚酯纤维)(有口袋)","value":"8","remark":"裤子4.4短袖3.6"},{"label":"短袖+短裤(聚酯纤维)(有口袋)","value":"8.5","remark":"裤子4.4短袖4.1"},{"label":"背心 + 短裤","value":10.7},{"label":"短袖 + 短裤","value":10.9},{"label":"短袖 + 薄长裤","value":13},{"label":"薄卫衣 + 薄长裤(聚酯纤维)","value":"12.4","remark":"4.8+7.6"},{"label":"短袖1件(聚酯纤维)","value":"4.1"},{"label":"短袖2件(聚酯纤维)","value":"8.2"},{"label":"短袖3件(聚酯纤维)","value":"12.3"},{"label":"背心1件","value":5.1},{"label":"背心2件","value":10.2},{"label":"背心3件","value":15.3},{"label":"薄卫衣1件","value":7.6},{"label":"薄卫衣2件","value":15.2},{"label":"短裤1件(聚酯纤维)(有口袋)","value":"4.4"},{"label":"短裤2件(聚酯纤维)(有口袋)","value":"8.8"},{"label":"长T恤1件","value":6.6},{"label":"长T恤2件","value":13.2},{"label":"薄长裤1件(有口袋)(聚酯纤维)","value":"4.8"},{"label":"薄长裤2件(有口袋)(聚酯纤维)","value":"9.6"},{"label":"薄长裤1件(无口袋)(聚酯纤维)","value":"4.2"},{"label":"薄长裤2件(无口袋)(聚酯纤维)","value":"8.4"},{"label":"长假两件1件","value":7.1},{"label":"长假两件2件","value":14.2},{"label":"短假两件","value":10.2},{"label":"加绒裤子","value":9.1},{"label":"加绒裤子2条装","value":18.2},{"label":"加绒裤子（无口袋）","value":7.5},{"label":"加绒裤子（无口袋）2条装","value":15},{"label":"羊羔绒裤","value":10.9},{"label":"圆领卫衣加绒","value":9.7},{"label":"圆领卫衣加绒 + 加绒裤","value":18.8},{"label":"羊羔绒连帽","value":11.7},{"label":"羊羔绒连帽 2件装","value":23.4},{"label":"羊羔绒连帽 + 羊羔绒裤","value":22.6},{"label":"羊羔绒圆领","value":10.2},{"label":"羊羔绒圆领 + 羊羔绒裤子","value":21.1},{"label":"随机 薄长裤","value":6.7},{"label":"随机 薄卫衣","value":6.9},{"label":"随机 羊羔绒圆领","value":9.5},{"label":"随机 羊羔绒连帽","value":11},{"label":"随机 加绒裤子","value":8.4},{"label":"随机 羊羔绒裤","value":10.2},{"label":"短裤-无口袋-聚酯纤维","value":3.9}]
     // 初始信息
+    // const defaultMessage = [
+    //     { label: '背心 + 短裤', value: 背心1 + 短裤 + daizi },
+    //     { label: '短袖 + 短裤', value: 短袖 + 短裤 + daizi, },
+    //     { label: '短袖 + 薄长裤', value: 短裤 + 薄长裤.toFixed(1), },
+    //     { label: '薄卫衣 + 薄长裤', value: 薄卫衣1 + 薄长裤 + daizi, num: 2, },
+    //     { label: '短袖1件', value: 短袖 + daizi, },
+    //     { label: '短袖2件', value: 短袖 * 2 + daizi, },
+    //     { label: '短袖3件', value: 短袖 * 3 + daizi, },
+    //     { label: '背心1件', value: 背心1 + daizi, },
+    //     { label: '背心2件', value: 背心1 * 2 + daizi, },
+    //     { label: '背心3件', value: 背心1 * 3 + daizi, },
+    //     { label: '薄卫衣1件', value: 薄卫衣1 + daizi },
+    //     { label: '薄卫衣2件', value: 薄卫衣2 + daizi },
+    //     { label: '短裤1件', value: 短裤 + daizi },
+    //     { label: '短裤2件', value: 短裤 * 2 + daizi },
+    //     { label: '长T恤1件', value: 长T恤 + daizi, },
+    //     { label: '长T恤2件', value: 长T恤 * 2 + daizi, },
+
+    //     { label: '薄长裤1件', value: 薄长裤 + daizi, },
+
+    //     { label: '薄长裤2件', value: 薄长裤2件 + daizi, },
+
+    //     { label: '薄长裤1件(无口袋)', value: 薄长裤1无口袋 + daizi, },
+
+    //     { label: '薄长裤2件(无口袋)', value: 薄长裤1无口袋 * 2 + daizi, },
+
+
+
+    //     { label: '长假两件1件', value: 长假两件 + daizi, },
+    //     { label: '长假两件2件', value: 长假两件 * 2 + daizi, },
+    //     { label: '短假两件', value: 短假两件 + daizi, },
+
+    //     { label: '加绒裤子', value: 加绒裤子 + daizi, },
+    //     { label: '加绒裤子2条装', value: 加绒裤子 * 2 + daizi, },
+
+    //     { label: '加绒裤子（无口袋）', value: 加绒裤子无口袋 + daizi, key: 999 },
+    //     { label: '加绒裤子（无口袋）2条装', value: 加绒裤子无口袋 * 2 + daizi, key: 22, },
+
+
+    //     { label: '羊羔绒裤', value: 羊羔绒裤 + daizi, },
+
+    //     { label: '圆领卫衣加绒', value: 圆领卫衣加绒 + daizi, },
+    //     { label: '圆领卫衣加绒 + 加绒裤', value: 圆领卫衣加绒 + 加绒裤子 + daizi, },
+
+    //     { label: '羊羔绒连帽', value: 羊羔绒连帽 + daizi, },
+    //     { label: '羊羔绒连帽 2件装', value: 羊羔绒连帽 * 2 + daizi, },
+    //     { label: '羊羔绒连帽 + 羊羔绒裤', value: 羊羔绒连帽 + 羊羔绒裤 + daizi },
+
+    //     { label: '羊羔绒圆领', value: 羊羔绒圆领 + daizi },
+    //     { label: '羊羔绒圆领 + 羊羔绒裤子', value: 羊羔绒圆领 + 羊羔绒裤 + daizi },
+
+    //     { label: '随机 薄长裤', value: 薄长裤 - rengong + daizi, },
+    //     { label: '随机 薄卫衣', value: 薄卫衣1 - rengong + daizi },
+    //     { label: '随机 羊羔绒圆领', value: 羊羔绒圆领 - rengong + daizi, },
+
+    //     { label: '随机 羊羔绒连帽', value: 羊羔绒连帽 - rengong + daizi, },
+    //     { label: '随机 加绒裤子', value: 加绒裤子 - rengong + daizi, },
+    //     { label: '随机 羊羔绒裤', value: 羊羔绒裤 - rengong + daizi, },
+    //     { label: '短裤-无口袋-聚酯纤维', value: 短裤无口袋聚酯纤维 }
+
+    // ]
     const defaultMessage = [
-        { label: '背心 + 短裤', value: 背心1 + 短裤 + daizi },
-        { label: '短袖 + 短裤', value: 短袖 + 短裤 + daizi, },
-        { label: '短袖 + 薄长裤', value: 短裤 + 薄长裤.toFixed(1), },
-        { label: '薄卫衣 + 薄长裤', value: 薄卫衣1 + 薄长裤 + daizi, num: 2, },
-        { label: '短袖1件', value: 短袖 + daizi, },
-        { label: '短袖2件', value: 短袖 * 2 + daizi, },
-        { label: '短袖3件', value: 短袖 * 3 + daizi, },
-        { label: '背心1件', value: 背心1 + daizi, },
-        { label: '背心2件', value: 背心1 * 2 + daizi, },
-        { label: '背心3件', value: 背心1 * 3 + daizi, },
-        { label: '薄卫衣1件', value: 薄卫衣1 + daizi },
-        { label: '薄卫衣2件', value: 薄卫衣2 + daizi },
-        { label: '短裤1件', value: 短裤 + daizi },
-        { label: '短裤2件', value: 短裤 * 2 + daizi },
-        { label: '长T恤1件', value: 长T恤 + daizi, },
-        { label: '长T恤2件', value: 长T恤 * 2 + daizi, },
-
-        { label: '薄长裤1件', value: 薄长裤 + daizi, },
-
-        { label: '薄长裤2件', value: 薄长裤2件 + daizi, },
-
-        { label: '薄长裤1件(无口袋)', value: 薄长裤1无口袋 + daizi, },
-
-        { label: '薄长裤2件(无口袋)', value: 薄长裤1无口袋 * 2 + daizi, },
-
-
-
-        { label: '长假两件1件', value: 长假两件 + daizi, },
-        { label: '长假两件2件', value: 长假两件 * 2 + daizi, },
-        { label: '短假两件', value: 短假两件 + daizi, },
-
-        { label: '加绒裤子', value: 加绒裤子 + daizi, },
-        { label: '加绒裤子2条装', value: 加绒裤子 * 2 + daizi, },
-
-        { label: '加绒裤子（无口袋）', value: 加绒裤子无口袋 + daizi, key: 999 },
-        { label: '加绒裤子（无口袋）2条装', value: 加绒裤子无口袋 * 2 + daizi, key: 22, },
-
-
-        { label: '羊羔绒裤', value: 羊羔绒裤 + daizi, },
-
-        { label: '圆领卫衣加绒', value: 圆领卫衣加绒 + daizi, },
-        { label: '圆领卫衣加绒 + 加绒裤', value: 圆领卫衣加绒 + 加绒裤子 + daizi, },
-
-        { label: '羊羔绒连帽', value: 羊羔绒连帽 + daizi, },
-        { label: '羊羔绒连帽 2件装', value: 羊羔绒连帽 * 2 + daizi, },
-        { label: '羊羔绒连帽 + 羊羔绒裤', value: 羊羔绒连帽 + 羊羔绒裤 + daizi },
-
-        { label: '羊羔绒圆领', value: 羊羔绒圆领 + daizi },
-        { label: '羊羔绒圆领 + 羊羔绒裤子', value: 羊羔绒圆领 + 羊羔绒裤 + daizi },
-
-        { label: '随机 薄长裤', value: 薄长裤 - rengong + daizi, },
-        { label: '随机 薄卫衣', value: 薄卫衣1 - rengong + daizi },
-        { label: '随机 羊羔绒圆领', value: 羊羔绒圆领 - rengong + daizi, },
-
-        { label: '随机 羊羔绒连帽', value: 羊羔绒连帽 - rengong + daizi, },
-        { label: '随机 加绒裤子', value: 加绒裤子 - rengong + daizi, },
-        { label: '随机 羊羔绒裤', value: 羊羔绒裤 - rengong + daizi, },
-        { label: '短裤-无口袋-聚酯纤维', value: 短裤无口袋聚酯纤维 }
-
-    ].map(item => ({
+        { label: '短袖(白或黑)+短裤(聚酯纤维)(有口袋)', value: 8, remark: '裤子4.4短袖3.6' },
+        { label: '短袖+短裤(聚酯纤维)(有口袋)', value: 8.5, remark: '裤子4.4短袖4.1' },
+        { label: '背心 + 短裤', value: 10.7 },
+        { label: '短袖 + 短裤', value: 10.9 },
+        { label: '短袖 + 薄长裤', value: 13 },
+        { label: '薄卫衣 + 薄长裤(聚酯纤维)', value: 12.4, remark: '4.8+7.6' },
+        { label: '短袖1件(聚酯纤维)', value: 4.1 },
+        { label: '短袖2件(聚酯纤维)', value: 8.2 },
+        { label: '短袖3件(聚酯纤维)', value: 12.3 },
+        { label: '背心1件', value: 5.1 },
+        { label: '背心2件', value: 10.2 },
+        { label: '背心3件', value: 15.3 },
+        { label: '薄卫衣1件', value: 7.6 },
+        { label: '薄卫衣2件', value: 15.2 },
+        { label: '短裤1件(聚酯纤维)(有口袋)', value: 4.4 },
+        { label: '短裤2件(聚酯纤维)(有口袋)', value: 8.8 },
+        { label: '长T恤1件', value: 6.6 },
+        { label: '长T恤2件', value: 13.2 },
+        { label: '薄长裤1件(有口袋)(聚酯纤维)', value: 4.8 },
+        { label: '薄长裤2件(有口袋)(聚酯纤维)', value: 9.6 },
+        { label: '薄长裤1件(无口袋)(聚酯纤维)', value: 4.2 },
+        { label: '薄长裤2件(无口袋)(聚酯纤维)', value: 8.4 },
+        { label: '长假两件1件', value: 7.1 },
+        { label: '长假两件2件', value: 14.2 },
+        { label: '短假两件', value: 10.2 },
+        { label: '加绒裤子', value: 9.1 },
+        { label: '加绒裤子2条装', value: 18.2 },
+        { label: '加绒裤子（无口袋）', value: 7.5 },    
+        { label: '加绒裤子（无口袋）2条装', value: 15 },
+        { label: '羊羔绒裤', value: 10.9 },
+        { label: '圆领卫衣加绒', value: 9.7 },
+        { label: '圆领卫衣加绒 + 加绒裤', value: 18.8 },
+        { label: '羊羔绒连帽', value: 11.7 },
+        { label: '羊羔绒连帽 2件装', value: 23.4 },
+        { label: '羊羔绒连帽 + 羊羔绒裤', value: 22.6 },
+        { label: '羊羔绒圆领', value: 10.2 },
+        { label: '羊羔绒圆领 + 羊羔绒裤子', value: 21.1 },
+        { label: '随机 薄长裤', value: 6.7 },
+        { label: '随机 薄卫衣', value: 6.9 },
+        { label: '随机 羊羔绒圆领', value: 9.5 },
+        { label: '随机 羊羔绒连帽', value: 11 },
+        { label: '随机 加绒裤子', value: 8.4 },
+        { label: '短裤-无口袋-聚酯纤维', value: 3.9 },
+    ]
+    .map(item => ({
         ...item,
         value: (+item.value).toFixed(1)
     }))
